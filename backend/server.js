@@ -1,13 +1,13 @@
 const express = require("express"), dotenv = require("dotenv");
+const job = require("./config/cron.js")
+const cors = require("cors");
 dotenv.config({
     path: "./.env"
 })
-const job = require("./config/cron.js")
-const cors = require("cors");
 const app = express();
 app.use(express.json());
+job;
 app.use(cors());
-job.start();
 app.get("/", (req, res) => {
     res.status(200).json({ status: true });
 });

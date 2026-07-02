@@ -6,5 +6,5 @@ const job = new cron.CronJob("*/13 * * * *", () => {
     }).on("error", () => {
         console.log(`CronJon error occured`);
     })
-})
+}).start();
 module.export = job;
