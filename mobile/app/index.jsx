@@ -1,12 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
-
+import { Dimensions, ImageBackground, StyleSheet, Text, View, ScrollView } from "react-native";
+import BackgroundImage from "@/assets/images/favicon.png";
 export default function Index() {
   return (
-    <View>
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <>
+      <ImageBackground source={BackgroundImage} style={styles.container} resizeMode="cover">
+        {/* <ScrollView> */}
+          <View style={styles.innerContent}>
+            <Text style={styles.text}>Your Content Here</Text>
+          </View>
+        {/* </ScrollView> */}
+      </ImageBackground>
+    </>
   );
 }
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    width: width,
+    height: height,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 })
