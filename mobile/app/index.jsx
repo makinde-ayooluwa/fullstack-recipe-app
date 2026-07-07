@@ -10,7 +10,7 @@ const Index = () => {
       {/* LOGO */}
       <View>
         <Image style={styles.image} source={Logo} />
-        <Text style={styles.title}>Recipe App</Text>
+        <Text style={styles.title}>Chat App</Text>
       </View>
       {/* LOGO */}
       <View style={styles.links}>

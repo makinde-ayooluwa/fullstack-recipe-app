@@ -1,5 +1,5 @@
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useState } from 'react'
 import { authStyles } from '../../styles/authStyles'
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import useDimensions from '../../hooks/useDimension';
@@ -7,6 +7,49 @@ import CustomInput from '../../components/customInput';
 const RegisterScreen = () => {
     const { width, height } = useDimensions();
     const styles = authStyles['register'];
+    const [isLoading, setIsLoading] = useState(false);
+    const [registerData, setRegisterData] = useState({
+        fullname: "",
+        email: "",
+        password: ""
+    })
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        if (registerData.fullname.trim() === "") {
+            Alert.alert("Register Error", "Full name is required");
+            setIsLoading(false);
+            return;
+        }
+
+        if (registerData.email.trim() === "") {
+            Alert.alert("Register Error", "Email is required");
+            setIsLoading(false);
+            return;
+        }
+
+        if (registerData.password.trim() === "") {
+            Alert.alert("Register Error", "Password is required");
+            setIsLoading(false);
+            return;
+        }
+        try {
+            const response = await fetch("http://10.34.217.193:5001");
+            if (!response) {
+                setIsLoading(false);
+            }
+            console.log("Status:", response.status);
+            console.log("OK:", response.ok);
+
+            const text = await response.text();
+            console.log(text);
+        } catch (err) {
+            console.log(err);
+        }
+        // Alert.alert("Success", "Registration successful!");
+        // setIsLoading(false);
+        // Continue with registration...
+    };
+
     return (
         <KeyboardAvoidingView style={{ flex: 1 }}
             behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -28,7 +71,12 @@ const RegisterScreen = () => {
                     <View style={[styles.loginCard, { width: width - 50 }]}>
                         <View style={styles.inputGroup}>
                             <Text style={styles.inputLabel}>Fullname</Text>
-                            <CustomInput style={[styles.input, { width: width - 50 }]} placeholder="John Doe" />
+                            <CustomInput
+                                style={[styles.input, { width: width - 50 }]}
+                                placeholder="John Doe"
+                                onChangeText={(text) => setRegisterData({ ...registerData, fullname: text })}
+                                value={registerData.fullname}
+                            />
                         </View>
                         <View style={styles.inputGroup}>
                             <Text style={styles.inputLabel}>Email address</Text>
@@ -36,15 +84,29 @@ const RegisterScreen = () => {
                                 placeholder="johndoe@example.com"
                                 keyboardType="email-address"
                                 autoCapitalize="none"
-                                autoCorrect={false} />
+                                autoCorrect={false}
+                                onChangeText={(text) => setRegisterData({ ...registerData, email: text })}
+                                value={registerData.email}
+                            />
                         </View>
                         <View style={styles.inputGroup}>
                             <Text style={styles.inputLabel}>Password</Text>
-                            <CustomInput style={[styles.input, { width: width - 50 }]} placeholder="***********" secureEntry />
+                            <CustomInput
+                                style={[styles.input, { width: width - 50 }]}
+                                placeholder="***********"
+                                secureEntry
+                                onChangeText={(text) => setRegisterData({ ...registerData, password: text })}
+                                value={registerData.password}
+                            />
                         </View>
                         <View style={styles.inputGroup}>
-                            <Pressable style={[styles.submit, { width: width - 50 }]}>
-                                <Text style={{ textAlign: "center", color:"#fff", fontSize: 20 }}>Register</Text>
+                            <Pressable onPress={() => !isLoading ? handleSubmit() : console.log("Can't click")} style={({ pressed }) => [styles.submit, isLoading && { backgroundColor: "gray" }, { width: width - 50 }]}>
+                                {isLoading ? <ActivityIndicator color={"white"} /> : <Text
+                                    style={{
+                                        textAlign: "center",
+                                        color: "#fff",
+                                        fontSize: 20
+                                    }}>Register</Text>}
                             </Pressable>
                         </View>
                     </View>
