@@ -1,20 +1,22 @@
 export const authStyles = {
-    login:{
-        container:{
+    login: {
+        container: {
             flex: 1,
         }
     },
-    register:{
-        container:{
+    register: {
+        container: {
             flex: 1,
-            justifyContent:"center",
+            justifyContent: "center",
         },
-        socialRegister:{
-            alignItems:"center",
-            justifyContent:"space-between"
+        socialRegister: {
+            alignItems: "center",
+            justifyContent: "space-between"
         },
-        socialIcon:{
-
+        socialIcon: {
+            borderWidth: 1,
+            padding: 10,
+            backgroundColor: "rgba(255,255,255,0.9)",
         }
     },
 }
