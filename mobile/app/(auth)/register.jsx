@@ -2,7 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { authStyles } from '../../styles/authStyles'
 import { AntDesign, Entypo } from '@expo/vector-icons';
+import useDimensions from '../../hooks/useDimension';
 const RegisterScreen = () => {
+    const { width, height } = useDimensions();
     const styles = authStyles['register'];
     return (
         <View style={styles.container}>
@@ -18,8 +20,8 @@ const RegisterScreen = () => {
                 <Entypo name='facebook' size={30} color={"red"} style={styles.socialIcon} />
                 {/* </BlurView> */}
             </View>
-            <Text style={{ textAlign: "center", color: "#000", fontSize: 10, marginBottom: 10, marginTop: 20 }}>or continue with email</Text>
-            <View style={styles.login}>
+            <Text style={{ textAlign: "center", color: "#000", fontSize: 12.5, marginBottom: 10, marginTop: 20 }}>or continue with email</Text>
+            <View style={[styles.loginCard, { width: width - 50 }]}>
 
             </View>
         </View>

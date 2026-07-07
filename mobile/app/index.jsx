@@ -2,7 +2,8 @@ import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-nati
 import React from 'react'
 import Logo from "@/assets/images/favicon.png";
 import { router } from 'expo-router';
-const { width, height } = Dimensions.get('screen');
+import useDimensions from "../hooks/useDimension";
+const { width, height } = useDimensions();
 const Index = () => {
   return (
     <View style={styles.index}>
