@@ -1,30 +1,82 @@
-import { Dimensions, ImageBackground, StyleSheet, Text, View, ScrollView } from "react-native";
-import BackgroundImage from "@/assets/images/favicon.png";
-import ws from "@/config/websocket";
-export default function Index() {
-  ws.onopen = () => {
-    ws.send(JSON.stringify({ type: "join" }))
-    
-  }
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import Logo from "@/assets/images/favicon.png";
+import { router } from 'expo-router';
+const { width, height } = Dimensions.get('screen');
+const Index = () => {
   return (
-    <>
-      <ImageBackground source={BackgroundImage} style={styles.container} resizeMode="cover">
-        {/* <ScrollView> */}
-        <View style={styles.innerContent}>
-          <Text style={styles.text}>Your Content Here</Text>
-        </View>
-        {/* </ScrollView> */}
-      </ImageBackground>
-    </>
-  );
+    <View style={styles.index}>
+      {/* LOGO */}
+      <View>
+        <Image style={styles.image} source={Logo} />
+        <Text style={styles.title}>Recipe App</Text>
+      </View>
+      {/* LOGO */}
+      <View style={styles.links}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.pressed,
+          ]}
+          onPress={()=>router.push("/register")}
+        >
+          <Text style={styles.buttonText}>Register</Text>
+        </Pressable>
+        <Pressable style={({ pressed }) => [
+          styles.button,
+          { backgroundColor: "transparent" },
+          pressed && styles.pressed,
+        ]}
+        onPress={()=>router.push("/login")}
+        >
+          <Text style={[styles.buttonText, { color: "#fff" }]}>Login</Text>
+        </Pressable>
+      </View>
+    </View>
+  )
 }
-const { width, height } = Dimensions.get('window');
+
+export default Index
+
 const styles = StyleSheet.create({
-  container: {
+  index: {
     flex: 1,
-    width: width,
-    height: height,
+    backgroundColor: "green",
     justifyContent: "center",
+    alignContent: "center",
     alignItems: "center"
+  },
+  image: {
+    alignSelf: "center",
+    marginBottom: 10
+  },
+  title: {
+    alignSelf: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 30
+  },
+  links: {
+    position: "absolute",
+    bottom: 100,
+    display: "flex"
+  },
+  button: {
+    borderColor: "rgba(255, 255, 255, 1)",
+    borderWidth: 1,
+    width: width - 100,
+    borderRadius: 30,
+    padding: 10,
+    backgroundColor: "#fff",
+    marginBottom: 10
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#000",
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  pressed: {
+    backgroundColor: "gray"
   }
 })
