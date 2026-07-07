@@ -10,7 +10,7 @@ export const authStyles = {
             justifyContent: "center",
         },
         socialRegister: {
-            flexDirection:"row",
+            flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             gap: 40
@@ -21,10 +21,28 @@ export const authStyles = {
             backgroundColor: "rgba(255,255,255,0.9)",
             borderRadius: 10
         },
-        loginCard:{
+        loginCard: {
             borderRadius: 30,
-            alignSelf:"center",
+            alignSelf: "center",
             padding: 20
+        },
+        inputGroup: {
+            alignItems: "start",
+            marginVertical: 10,
+        },
+        inputLabel: {
+            marginVertical: 0,
+            fontWeight: "bold",
+            alignSelf: "start"
+        },
+        input: {
+            alignSelf: "center"
+        },
+        submit: {
+            backgroundColor: "#005712ff",
+            alignSelf: "center",
+            padding: 15,
+            borderRadius: 30,
         }
     },
 }
