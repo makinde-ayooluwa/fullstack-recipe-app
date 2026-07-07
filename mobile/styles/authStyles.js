@@ -10,13 +10,16 @@ export const authStyles = {
             justifyContent: "center",
         },
         socialRegister: {
+            flexDirection:"row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "center",
+            gap: 40
         },
         socialIcon: {
             borderWidth: 1,
             padding: 10,
             backgroundColor: "rgba(255,255,255,0.9)",
+            borderRadius: 10
         }
     },
 }
