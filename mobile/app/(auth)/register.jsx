@@ -55,13 +55,15 @@ const RegisterScreen = () => {
                 setUser(JSON.stringify(data.data._id))
                 console.log("Signed up as ", user);
             } else {
-                console.log("DATA >>>>", data);
+                console.log("DATA >>>>", data)
                 Alert.alert("Error", "Registration error!" + JSON.stringify(data));
                 setIsLoading(false);
             }
             // console.log(user);
         } catch (err) {
-            console.log(err);
+            console.log("TEMP ERR",err);
+            setIsLoading(false);
+            Alert.alert("Error", "Registration error!");
         }
         // ;
         // setIsLoading(false);

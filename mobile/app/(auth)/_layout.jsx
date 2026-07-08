@@ -3,19 +3,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { router, Stack } from "expo-router";
 import { UserContext } from '../../contexts/UserContext';
 const AuthLayout = () => {
-    const [isLoading, setIsLoading] = useState(true);
-      const {user, setUser} = useContext(UserContext);
-      useEffect(()=>{
-        setIsLoading(false);
-      },[])
-      useEffect(()=>{
-        if(isLoading) return;
-        if(user !== null && user !== ""){
-          router.replace("/chats");
-        }else{
-          router.replace("/");
+    const { user, setUser } = useContext(UserContext);
+    useEffect(() => {
+        if (user !== null) {
+            router.replace("/chats");
         }
-      },[user]);
+    }, [user]);
     return (
         <Stack screenOptions={{ headerShown: true, headerStyle: { backgroundColor: "#005712ff" }, headerTintColor: "#fff", headerTitleAlign: "center", }}>
             <Stack.Screen name='login' options={{ title: "Login" }} />

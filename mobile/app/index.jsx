@@ -47,6 +47,7 @@ const Index = () => {
         >
           <Text style={[styles.buttonText, { color: "#fff" }]}>Login</Text>
         </Pressable>
+        <Link href={"/chats"}>HHHHHHH</Link>
       </View>
     </View>
   )
