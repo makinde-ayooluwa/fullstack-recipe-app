@@ -37,25 +37,25 @@ const RegisterScreen = () => {
             return;
         }
         try {
-            const response = await fetch(`${offlineBackendUri}/user/register`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
+            const response = await fetch(`${offlineBackendUri}/user/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                body: registerData
+                body: JSON.stringify(registerData)
             });
             console.log("Status:", response.status);
 
             const data = await response.json();
             if (data.status == "success") {
-                console.log("DATA >>>>",data);
+                // console.log("DATA >>>>",data);
                 Alert.alert("Success", "Registration successful!");
                 setIsLoading(false);
                 // router.replace("/chats");
-                setUser(JSON.stringify(registerData))
+                setUser(JSON.stringify(data.data._id))
                 console.log("Signed up as ", user);
-            }else{
-                console.log("DATA >>>>",data);
+            } else {
+                console.log("DATA >>>>", data);
                 Alert.alert("Error", "Registration error!" + JSON.stringify(data));
                 setIsLoading(false);
             }

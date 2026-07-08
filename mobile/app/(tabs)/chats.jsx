@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import {Link} from "expo-router"
 import CustomView from "../../components/customView";
+import { UserContext } from '../../contexts/UserContext';
 const HomePage = () => {
+  const {user} = useContext(UserContext);
   return (
     <CustomView safe>
         <Text>Chats Page</Text>
+        <Text>User ID: {user}</Text>
     </CustomView>
   )
 }
