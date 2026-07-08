@@ -1,5 +1,5 @@
 import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { authStyles } from '../../styles/authStyles'
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import useDimensions from '../../hooks/useDimension';
@@ -8,7 +8,13 @@ import { offlineBackendUri } from '../../constants/backendUri';
 import { UserContext } from "../../contexts/UserContext"
 import { router } from 'expo-router';
 const RegisterScreen = () => {
+
     const { user, setUser } = useContext(UserContext);
+    useEffect(() => {
+        if (user !== null) {
+            router.replace("/chats");
+        }
+    }, [user]);
     const { width, height } = useDimensions();
     const styles = authStyles['register'];
     const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +67,7 @@ const RegisterScreen = () => {
             }
             // console.log(user);
         } catch (err) {
-            console.log("TEMP ERR",err);
+            console.log("TEMP ERR", err);
             setIsLoading(false);
             Alert.alert("Error", "Registration error!");
         }

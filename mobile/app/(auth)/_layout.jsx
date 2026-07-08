@@ -3,12 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { router, Stack } from "expo-router";
 import { UserContext } from '../../contexts/UserContext';
 const AuthLayout = () => {
-    const { user, setUser } = useContext(UserContext);
-    useEffect(() => {
-        if (user !== null) {
-            router.replace("/chats");
-        }
-    }, [user]);
+    
     return (
         <Stack screenOptions={{ headerShown: true, headerStyle: { backgroundColor: "#005712ff" }, headerTintColor: "#fff", headerTitleAlign: "center", }}>
             <Stack.Screen name='login' options={{ title: "Login" }} />

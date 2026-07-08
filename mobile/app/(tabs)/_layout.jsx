@@ -5,12 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { UserContext } from '../../contexts/UserContext'
 
 const TabsLayout = () => {
-    const { user, setUser } = useContext(UserContext);
-    useEffect(() => {
-        if (user !== null && user !== "") {
-            router.replace("/chats");
-        }
-    }, [user]);
+    
     return (
         <Tabs screenOptions={
             {
