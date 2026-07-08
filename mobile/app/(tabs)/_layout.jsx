@@ -1,9 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
+import React, { useContext, useEffect } from 'react'
+import { router, Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
+import { UserContext } from '../../contexts/UserContext'
 
 const TabsLayout = () => {
+    const {user, setUser} = useContext(UserContext);
+  useEffect(()=>{
+    setIsLoading(false);
+  },[])
+  useEffect(()=>{
+    if(isLoading) return;
+    if(user !== null && user !== ""){
+      router.replace("/chats");
+    }else{
+      router.replace("/");
+    }
+  },[user]);
     return (
         <Tabs screenOptions={
             {
