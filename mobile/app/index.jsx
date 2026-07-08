@@ -1,19 +1,25 @@
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Logo from "@/assets/images/favicon.png";
 import { Link, router } from 'expo-router';
 import useDimensions from "../hooks/useDimension";
 import { UserContext } from '@/contexts/UserContext';
+
 const { width, height } = useDimensions();
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const {user, setUser} = useContext(UserContext);
-  // useEffect(()=>{
-  //   if(user !== null){
-  //     router.replace("/home");
-  //   }else{
-  //     router.replace("/");
-  //   }
-  // },[user]);
+  useEffect(()=>{
+    setIsLoading(false);
+  },[])
+  useEffect(()=>{
+    if(isLoading) return;
+    if(user !== null && user !== ""){
+      router.replace("/chats");
+    }else{
+      router.replace("/");
+    }
+  },[user]);
   return (
     <View style={styles.index}>
       {/* LOGO */}

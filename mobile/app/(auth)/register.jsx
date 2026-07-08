@@ -5,10 +5,10 @@ import { AntDesign, Entypo } from '@expo/vector-icons';
 import useDimensions from '../../hooks/useDimension';
 import CustomInput from '../../components/customInput';
 import { offlineBackendUri } from '../../constants/backendUri';
-import { UserContext } from "../../contexts/userContext"
+import { UserContext } from "../../contexts/UserContext"
 import { router } from 'expo-router';
 const RegisterScreen = () => {
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const { width, height } = useDimensions();
     const styles = authStyles['register'];
     const [isLoading, setIsLoading] = useState(false);
@@ -37,16 +37,27 @@ const RegisterScreen = () => {
             return;
         }
         try {
-            const response = await fetch(`${offlineBackendUri}/`);
+            const response = await fetch(`${offlineBackendUri}/user/register`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: registerData
+            });
             console.log("Status:", response.status);
-            console.log("OK:", response.ok);
 
-            const text = await response.text();
-            if (text) {
-                console.log(text);
-                Alert.alert("Success", "Registration successful! Redirecting....");
+            const data = await response.json();
+            if (data.status == "success") {
+                console.log("DATA >>>>",data);
+                Alert.alert("Success", "Registration successful!");
                 setIsLoading(false);
-                router.replace("/home");
+                // router.replace("/chats");
+                setUser(JSON.stringify(registerData))
+                console.log("Signed up as ", user);
+            }else{
+                console.log("DATA >>>>",data);
+                Alert.alert("Error", "Registration error!" + JSON.stringify(data));
+                setIsLoading(false);
             }
             // console.log(user);
         } catch (err) {
@@ -60,6 +71,7 @@ const RegisterScreen = () => {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }}
             behavior={Platform.OS === "ios" ? "padding" : "height"}>
+
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <Text style={{ textAlign: "center", color: "#000", fontSize: 15, marginBottom: 10 }}>Sign up with</Text>

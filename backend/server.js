@@ -3,6 +3,7 @@ const job = require("./config/cron.js")
 const cors = require("cors");
 const initializeSocket = require("./config/socket.js");
 const connectDb = require("./config/db.js");
+const userRouter = require("./routes/userRoutes.js")
 dotenv.config({
     path: "./.env"
 })
@@ -10,12 +11,13 @@ const app = express();
 app.use(express.json());
 job;
 initializeSocket();
-// connectDb();
+connectDb();
 app.use(cors());
 app.get("/", (req, res) => {
     res.status(200).json({ status: true });
     console.log("Request made");
 });
+app.use("/user", userRouter);
 app.listen(process.env.PORT, () => {
     console.log("Server listening on port: ", process.env.PORT);
 });
