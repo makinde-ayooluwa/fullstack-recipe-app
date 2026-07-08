@@ -1,10 +1,19 @@
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Logo from "@/assets/images/favicon.png";
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import useDimensions from "../hooks/useDimension";
+import { UserContext } from '@/contexts/UserContext';
 const { width, height } = useDimensions();
 const Index = () => {
+  const {user, setUser} = useContext(UserContext);
+  // useEffect(()=>{
+  //   if(user !== null){
+  //     router.replace("/home");
+  //   }else{
+  //     router.replace("/");
+  //   }
+  // },[user]);
   return (
     <View style={styles.index}>
       {/* LOGO */}
@@ -32,6 +41,7 @@ const Index = () => {
         >
           <Text style={[styles.buttonText, { color: "#fff" }]}>Login</Text>
         </Pressable>
+        <Link href={"/chats"}>Go to home</Link>
       </View>
     </View>
   )

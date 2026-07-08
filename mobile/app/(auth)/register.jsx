@@ -1,10 +1,14 @@
 import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { authStyles } from '../../styles/authStyles'
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import useDimensions from '../../hooks/useDimension';
 import CustomInput from '../../components/customInput';
+import { offlineBackendUri } from '../../constants/backendUri';
+import { UserContext } from "../../contexts/userContext"
+import { router } from 'expo-router';
 const RegisterScreen = () => {
+    const {user, setUser} = useContext(UserContext);
     const { width, height } = useDimensions();
     const styles = authStyles['register'];
     const [isLoading, setIsLoading] = useState(false);
@@ -33,19 +37,22 @@ const RegisterScreen = () => {
             return;
         }
         try {
-            const response = await fetch("http://10.34.217.193:5001");
-            if (!response) {
-                setIsLoading(false);
-            }
+            const response = await fetch(`${offlineBackendUri}/`);
             console.log("Status:", response.status);
             console.log("OK:", response.ok);
 
             const text = await response.text();
-            console.log(text);
+            if (text) {
+                console.log(text);
+                Alert.alert("Success", "Registration successful! Redirecting....");
+                setIsLoading(false);
+                router.replace("/home");
+            }
+            // console.log(user);
         } catch (err) {
             console.log(err);
         }
-        // Alert.alert("Success", "Registration successful!");
+        // ;
         // setIsLoading(false);
         // Continue with registration...
     };
